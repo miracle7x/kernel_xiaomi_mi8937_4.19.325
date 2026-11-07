@@ -25,7 +25,7 @@ KIMG="$OUTDIR/Image.gz"
 export PATH="$ROOTDIR/clang-zyc/bin:$PATH"
 
 # ================= INFO =================
-KERNEL_NAME="Pearl-Mi8937"
+KERNEL_NAME="pearl"
 DEVICE="mi8937"
 
 # =============== DATE (WIB) ===============
