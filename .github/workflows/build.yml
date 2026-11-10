@@ -50,8 +50,8 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /home/runner/.ccache
-          key: ${{ runner.os }}-ccache-tissot-${{ github.sha }}
-          restore-keys: ${{ runner.os }}-ccache-tissot-
+          key: ${{ runner.os }}-ccache-rolex-${{ github.sha }}
+          restore-keys: ${{ runner.os }}-ccache-rolex-
 
       - name: 🔧 Deps
         run: |
@@ -71,12 +71,12 @@ jobs:
       - name: 🔍 Detect defconfig
         run: |
           if [ -f arch/arm64/configs/vendor/rahmatmi8937_defconfig ]; then
-            echo "DEFCONFIG=rahmatmi8937_defconfig" >> $GITHUB_ENV
+            echo "DEFCONFIG=vendor/rahmatmi8937_defconfig" >> $GITHUB_ENV
           elif [ -f arch/arm64/configs/vendor/rahmatmi8937_defconfig ]; then
-            echo "DEFCONFIG=rahmatmi8937_defconfig" >> $GITHUB_ENV
+            echo "DEFCONFIG=vendor/rahmatmi8937_defconfig" >> $GITHUB_ENV
           else
-            echo "Defconfig rolex tidak ditemukan. Isi arch/arm64/configs:"
-            ls arch/arm64/configs
+            echo "Defconfig rahmatmi8937 tidak ditemukan. Isi arch/arm64/configs:"
+            ls arch/arm64/configs/vendor
             exit 1
           fi
 
