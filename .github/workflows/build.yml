@@ -72,9 +72,7 @@ jobs:
         run: |
           if [ -f arch/arm64/configs/vendor/rahmatmi8937_defconfig ]; then
             echo "DEFCONFIG=vendor/rahmatmi8937_defconfig" >> $GITHUB_ENV
-          elif [ -f arch/arm64/configs/vendor/rahmatmi8937_defconfig ]; then
-            echo "DEFCONFIG=vendor/rahmatmi8937_defconfig" >> $GITHUB_ENV
-          else
+           else
             echo "Defconfig rahmatmi8937 tidak ditemukan. Isi arch/arm64/configs:"
             ls arch/arm64/configs/vendor
             exit 1
@@ -89,9 +87,6 @@ jobs:
         run: |
           export PATH="$PWD/clang/bin:$PATH"
 
-          mkdir -p out
-          JOBS=$(( $(nproc --all) * 2 ))
-
           MAKE_ARGS=(
             O=out
             ARCH=arm64
@@ -105,15 +100,6 @@ jobs:
 
           make -j${JOBS} "${MAKE_ARGS[@]}" ${DEFCONFIG}
           make -j${JOBS} "${MAKE_ARGS[@]}" Image.gz-dtb
-          mkdir -p out
-          JOBS=$(( $(nproc --all) * 2 ))
-
-          make -j${JOBS} O=out ${DEFCONFIG}
-          make -j${JOBS} O=out \
-            CC="ccache clang" \
-            HOSTCC="ccache gcc" \
-            HOSTCXX="ccache g++" \
-            Image.gz-dtb
 
       - name: 📦 Package
         run: |
