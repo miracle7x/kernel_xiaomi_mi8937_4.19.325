@@ -85,10 +85,26 @@ jobs:
           curl -LSs "https://raw.githubusercontent.com/manipvlator/KernelSU/refs/heads/main/kernel/setup.sh" | bash -s main
           curl https://raw.githubusercontent.com/maxsteeel/nomount/refs/heads/dev/kernel/setup.sh | bash -s master
 
-      - name: 🛠️ Build 
+      - name: 🛠️ Build
         run: |
           export PATH="$PWD/clang/bin:$PATH"
 
+          mkdir -p out
+          JOBS=$(( $(nproc --all) * 2 ))
+
+          MAKE_ARGS=(
+            O=out
+            ARCH=arm64
+            CC="ccache clang"
+            HOSTCC="ccache clang"
+            HOSTCXX="ccache clang++"
+            CROSS_COMPILE=aarch64-linux-gnu-
+            CROSS_COMPILE_ARM32=arm-linux-gnueabi-
+            CLANG_TRIPLE=aarch64-linux-gnu-
+          )
+
+          make -j${JOBS} "${MAKE_ARGS[@]}" ${DEFCONFIG}
+          make -j${JOBS} "${MAKE_ARGS[@]}" Image.gz-dtb
           mkdir -p out
           JOBS=$(( $(nproc --all) * 2 ))
 
