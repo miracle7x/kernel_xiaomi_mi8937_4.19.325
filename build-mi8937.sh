@@ -26,7 +26,7 @@ export PATH="$ROOTDIR/clang-zyc/bin:$PATH"
 
 # ================= INFO =================
 KERNEL_NAME="pearl"
-DEVICE="mi8937"
+DEVICE="master"
 
 # =============== DATE (WIB) ===============
 DATE_TITLE=$(TZ=Asia/Jakarta date +"%d%m%Y")
